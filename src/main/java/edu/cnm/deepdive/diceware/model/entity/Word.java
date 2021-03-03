@@ -1,6 +1,8 @@
 package edu.cnm.deepdive.diceware.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import edu.cnm.deepdive.diceware.view.WordSerializer;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +14,7 @@ import javax.persistence.ManyToOne;
 import org.springframework.lang.NonNull;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
+@JsonSerialize(using = WordSerializer.class)
 @Entity
 public class Word {
 
@@ -21,7 +24,6 @@ public class Word {
   @Column(name = "word_id", nullable = false, updatable = false)
   private Long id;
 
-  @JsonIgnore
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "passphrase_id")
